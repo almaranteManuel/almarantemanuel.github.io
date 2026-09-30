@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Sistema visual — inspirado en jscamp (sobrio, dev, alto contraste)
+  ------------------------------------------------------------------
+  PALETA A — neutra profesional (por defecto, activa):
+    monocromo zinc + negro/blanco. Elegante y atemporal.
+  PALETA B — neutra con acento vibrante (amarillo jscamp):
+    cambia `data-palette="vibrant"` en <html> o en src/data/site.ts
+    para activar el acento ámbar + secundario sky.
+*/
+
+@theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-soft: var(--accent-soft);
+}
+
+:root {
+  color-scheme: light;
+  /* — Paleta A (neutra profesional / claro) — */
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --text: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --accent: #18181b;
+  --accent-contrast: #fafaf9;
+  --accent-soft: #f4f4f5;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
+/* — Paleta A / oscuro — */
+.dark {
+  color-scheme: dark;
+  --bg: #09090b;
+  --surface: #131316;
+  --text: #fafaf9;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --accent: #fafaf9;
+  --accent-contrast: #09090b;
+  --accent-soft: #1c1c1f;
+  --shadow-card: none;
+}
+
+/* — Paleta B (acento vibrante) — */
+:root[data-palette='vibrant'] {
+  --accent: #b45309;
+  --accent-contrast: #fffbeb;
+  --accent-soft: #fef3c7;
+}
+:root[data-palette='vibrant'].dark {
+  --accent: #fbbf24;
+  --accent-contrast: #09090b;
+  --accent-soft: rgb(251 191 36 / 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Focus visible accesible y sobrio */
+:where(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Transiciones discretas */
+a,
+button {
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,224 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { profile } from '../data/profile';
+import { socials } from '../data/experience';
+import { contact } from '../data/contact';
+
+const hasEmail = profile.email.trim().length > 0;
+---
+
+<section
+  id="contacto"
+  aria-labelledby="contacto-title"
+  class="mx-auto w-full max-w-5xl scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24"
+>
+  <span id="contacto-title" class="sr-only">Contacto</span>
+  <SectionHeading
+    eyebrow="05 · Contacto"
+    title="¿Hablamos?"
+    description="Cuéntame tu idea en un párrafo: qué necesitas, plazo y objetivo."
+  />
+  <div class="grid items-stretch gap-5 md:grid-cols-2">
+    <!-- Columna izquierda: contacto directo + redes -->
+    <div class="flex flex-col gap-5">
+      <div class="rounded-2xl border border-border bg-surface p-6">
+        <h3 class="font-mono text-xs font-medium uppercase tracking-widest text-muted">
+          Contacto directo
+        </h3>
+        {
+          hasEmail ? (
+            <>
+              <p class="mt-3 text-sm leading-relaxed text-muted">
+                Si preferís podés copiar mi email para un mensaje más personalizado.
+              </p>
+              <button
+                id="copy-email"
+                type="button"
+                data-email={profile.email}
+                class="mt-4 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium hover:border-muted"
+              >
+                <svg
+                  class="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <span id="copy-email-label">Copiar email</span>
+              </button>
+              <p id="copy-email-status" role="status" class="mt-2 h-5 text-xs text-muted" />
+            </>
+          ) : (
+            <p class="mt-3 text-sm leading-relaxed text-muted">
+              Escríbeme por el formulario o por LinkedIn/GitHub.
+            </p>
+          )
+        }
+        <p class="mt-2 text-xs text-muted">{contact.responseTime}</p>
+      </div>
+      <div class="flex-1 rounded-2xl border border-border bg-surface p-6">
+        <h3 class="font-mono text-xs font-medium uppercase tracking-widest text-muted">Redes</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group inline-flex items-center gap-2 text-muted hover:text-text"
+                >
+                  <span class="font-medium text-text">{s.label}</span> {s.handle}
+                  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">
+                    ↗
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Columna derecha: formulario (sin mailto, vía servicio externo) -->
+    <form
+      id="contact-form"
+      action={contact.formEndpoint}
+      method="post"
+      class="flex flex-col rounded-2xl border border-border bg-surface p-6"
+    >
+      <div>
+        <label for="nombre" class="mb-1.5 block text-sm font-medium">Nombre</label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          required
+          autocomplete="name"
+          placeholder="Tu nombre"
+          class="w-full rounded-xl border border-border bg-bg px-4 py-2.5 text-sm placeholder:text-muted"
+        />
+      </div>
+      <div class="mt-4">
+        <label for="email" class="mb-1.5 block text-sm font-medium">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="tu@email.com"
+          class="w-full rounded-xl border border-border bg-bg px-4 py-2.5 text-sm placeholder:text-muted"
+        />
+      </div>
+      <div class="mt-4">
+        <label for="mensaje" class="mb-1.5 block text-sm font-medium">Mensaje</label>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          required
+          rows="4"
+          placeholder="Hola, quiero…"
+          class="w-full resize-y rounded-xl border border-border bg-bg px-4 py-2.5 text-sm placeholder:text-muted"
+        ></textarea>
+      </div>
+      <!-- Honeypot anti-spam: invisible para humanos -->
+      <input
+        type="text"
+        name="_gotcha"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+        class="hidden"
+      />
+      <button
+        id="contact-submit"
+        type="submit"
+        class="mt-5 w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-contrast hover:opacity-85 disabled:opacity-50"
+      >
+        Enviar mensaje
+      </button>
+      <p
+        id="contact-status"
+        role="status"
+        aria-live="polite"
+        class="mt-3 min-h-5 text-xs leading-relaxed text-muted"
+      >
+        Tu mensaje se envía directamente. Sin abrir tu cliente de correo.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script is:inline>
+  // Botón copiar: el email nunca se renderiza como texto visible.
+  const copyBtn = document.getElementById('copy-email');
+  const copyLabel = document.getElementById('copy-email-label');
+  const copyStatus = document.getElementById('copy-email-status');
+  copyBtn?.addEventListener('click', async () => {
+    const email = copyBtn.getAttribute('data-email') ?? '';
+    if (!email) return;
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Fallback para navegadores sin Clipboard API
+      const ta = document.createElement('textarea');
+      ta.value = email;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    if (copyLabel) copyLabel.textContent = '¡Copiado!';
+    if (copyStatus) copyStatus.textContent = 'Email copiado al portapapeles.';
+    window.setTimeout(() => {
+      if (copyLabel) copyLabel.textContent = 'Copiar email';
+      if (copyStatus) copyStatus.textContent = '';
+    }, 2500);
+  });
+
+  // Formulario vía servicio externo (fetch + estados accesibles).
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('contact-submit');
+  const status = document.getElementById('contact-status');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formEl = e.target;
+    if (!(formEl instanceof HTMLFormElement)) return;
+    const data = new FormData(formEl);
+    if (data.get('_gotcha')) return; // bot detectado, silencio
+    const endpoint = formEl.getAttribute('action') ?? '';
+    if (!endpoint || endpoint.includes('TU_ID')) {
+      if (status)
+        status.textContent = 'Falta configurar el endpoint del formulario en src/data/contact.ts.';
+      return;
+    }
+    if (submitBtn instanceof HTMLButtonElement) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+    }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error('Error de envío');
+      formEl.reset();
+      if (status) status.textContent = '¡Mensaje enviado! Te responderé en 24–48 h.';
+    } catch {
+      if (status)
+        status.textContent =
+          'No se pudo enviar. Inténtalo de nuevo o escríbeme por LinkedIn/GitHub.';
+    } finally {
+      if (submitBtn instanceof HTMLButtonElement) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar mensaje';
+      }
+    }
+  });
+</script>

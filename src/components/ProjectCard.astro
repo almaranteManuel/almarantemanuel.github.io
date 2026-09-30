@@ -1,0 +1,97 @@
+---
+import type { Project } from '../data/types';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const gallery = project.origen === 'propio' ? (project.images ?? []) : [];
+const hasGallery = gallery.length > 0;
+const hasLinks = Boolean(project.demo ?? project.repo);
+const stack = project.stack ?? [];
+---
+
+<article
+  class="group flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow-card)] hover:border-muted"
+>
+  {
+    hasGallery && (
+      <button
+        type="button"
+        data-lightbox-open
+        data-images={JSON.stringify(gallery)}
+        data-title={project.title}
+        aria-label={`Ver imágenes de ${project.title} (${gallery.length} imágenes)`}
+        class="group/thumb relative -mx-1 mb-4 overflow-hidden rounded-xl border border-border"
+      >
+        <img
+          src={gallery[0]}
+          alt={`Captura de ${project.title}`}
+          loading="lazy"
+          class="aspect-video w-full object-cover"
+        />
+        <span class="absolute bottom-2 right-2 rounded-full bg-black/70 px-3 py-1 font-mono text-xs text-white">
+          Ver imágenes · {gallery.length}
+        </span>
+      </button>
+    )
+  }
+  <h3 class="text-lg font-semibold tracking-tight">{project.title}</h3>
+  {
+    project.origen === 'cliente' && project.contexto ? (
+      <p class="mt-2 inline-flex w-fit rounded-full bg-accent-soft px-3 py-1 font-mono text-xs text-text">
+        {project.contexto}
+      </p>
+    ) : null
+  }
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{project.description}</p>
+  {
+    project.origen === 'cliente' && project.logros && project.logros.length > 0 && (
+      <ul class="mt-4 space-y-2 text-sm leading-relaxed">
+        {project.logros.map((logro) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true" class="text-accent">
+              ✓
+            </span>
+            <span>{logro}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    stack.length > 0 && (
+      <ul aria-label="Tecnologías usadas" class="mt-4 flex flex-wrap gap-2">
+        {stack.map((tech) => (
+          <li class="rounded-full bg-accent-soft px-3 py-1 font-mono text-xs text-text">{tech}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    hasLinks && (
+      <div class="mt-5 flex gap-4 text-sm font-medium">
+        {project.demo && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline decoration-muted underline-offset-4 hover:decoration-accent"
+          >
+            Demo ↗
+          </a>
+        )}
+        {project.repo && (
+          <a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline decoration-muted underline-offset-4 hover:decoration-accent"
+          >
+            Código ↗
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>

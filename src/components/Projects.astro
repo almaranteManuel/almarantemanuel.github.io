@@ -1,0 +1,48 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ProjectCard from './ProjectCard.astro';
+import Lightbox from './Lightbox.astro';
+import { projects } from '../data/projects';
+
+const propios = projects.filter((p) => p.origen === 'propio');
+const deCliente = projects.filter((p) => p.origen === 'cliente');
+---
+
+<section
+  id="proyectos"
+  aria-labelledby="proyectos-title"
+  class="border-t border-border bg-surface/40"
+>
+  <div class="mx-auto w-full max-w-5xl scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24">
+    <span id="proyectos-title" class="sr-only">Proyectos</span>
+    <SectionHeading
+      eyebrow="02 · Proyectos"
+      title="Trabajo destacado"
+      description="Lo que construyo por mi cuenta —y lo que construí dentro de un equipo— en dos grupos claros."
+    />
+
+    <h3 class="mb-5 font-mono text-xs font-medium uppercase tracking-widest text-muted">
+      Proyectos propios
+    </h3>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {propios.map((p) => <ProjectCard project={p} />)}
+    </div>
+
+    {
+      deCliente.length > 0 && (
+        <>
+          <h3 class="mb-5 mt-14 font-mono text-xs font-medium uppercase tracking-widest text-muted">
+            Experiencia en producto
+          </h3>
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {deCliente.map((p) => (
+              <ProjectCard project={p} />
+            ))}
+          </div>
+        </>
+      )
+    }
+  </div>
+</section>
+
+<Lightbox />

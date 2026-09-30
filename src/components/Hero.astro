@@ -1,0 +1,67 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section
+  id="inicio"
+  aria-labelledby="hero-title"
+  class="mx-auto w-full max-w-5xl px-5 pb-16 pt-20 sm:px-8 sm:pt-32"
+>
+  <p class="mb-5 font-mono text-xs uppercase tracking-widest text-muted" aria-hidden="true">
+    ./inicio
+  </p>
+  <p
+    class="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted"
+  >
+    <span class="inline-block h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
+    {profile.availability} · {profile.location}
+  </p>
+  <h1
+    id="hero-title"
+    class="text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl"
+  >
+    {profile.name}
+    <span class="mt-2 block text-2xl font-medium text-muted sm:text-3xl">{profile.role}</span>
+  </h1>
+  <p class="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted">
+    {profile.tagline}
+  </p>
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a
+      href="#proyectos"
+      class="rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-contrast hover:opacity-85"
+    >
+      Ver proyectos
+    </a>
+    <a
+      href="#contacto"
+      class="rounded-full border border-border bg-surface px-6 py-3 text-sm font-medium hover:border-muted"
+    >
+      Contactar
+    </a>
+    {
+      profile.cvUrl.trim().length > 0 && (
+        <a
+          href={profile.cvUrl}
+          download
+          class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-medium hover:border-muted"
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <path d="m7 10 5 5 5-5" />
+            <path d="M12 15V3" />
+          </svg>
+          Descargar CV
+        </a>
+      )
+    }
+  </div>
+  <div aria-hidden="true" class="mt-16 border-b border-border"></div>
+</section>
