@@ -8,7 +8,7 @@ export const profile: Profile = {
   location: 'Paraná, Entre Ríos, Argentina · Remoto',
   availability: 'Disponible para nuevos proyectos',
   email: 'almarante.manu@gmail.com',
-  cvUrl: '/cv.pdf',
+  cvUrl: `${import.meta.env.BASE_URL}cv.pdf`,
   about: [
     'Soy desarrollador full-stack con más de 3 años de experiencia en arquitectura, desarrollo e implementación end-to-end de soluciones web y móviles. Construí sistemas integrales desde cero hasta producción para agroindustria, servicios, logística y turismo.',
     'Trabajén en una startup bajo dirección de ingeniería en producto real: gestión de flotas, apps móviles con geolocalización, trazabilidad ganadera y paneles de administración. Me especializo en optimización de rendimiento, APIs robustas y arquitecturas limpias.',
