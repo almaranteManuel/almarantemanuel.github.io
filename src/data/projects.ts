@@ -49,12 +49,48 @@ export const projects: Project[] = [
   {
     title: 'New Rimagro',
     description:
-      'Sistema de gestión de flotas y combustibles: arquitectura end-to-end desde cero hasta producción.',
+      'Sistema integral de gestión de surtidores de combustible (fuel dispensers) diseñado para operaciones en Argentina. La plataforma permite administrar descargas de combustible, controlar inventario de tanques, gestionar usuarios con roles diferenciados, y generar reportes detallados de ventas y movimientos. Es una solución empresarial que sincroniza datos entre dispositivos locales (bombas de combustible) y servidores remotos en tiempo real.',
+    stack: ['TypeScript', ' Angular 6+', 'Node.js', 'MongoDB(local + remote)', 'Express', 'Mongoose', 'JWT'],
     origen: 'cliente',
     contexto: 'TrackerDev · producto de cliente, sin demo pública.',
     logros: [
-      'Diseñé e implementé la arquitectura end-to-end del sistema.',
-      'Control de roles, generación de tickets y emisión de vouchers en tiempo real para tanques y surtidores.',
+      'Gestión fragmentada de surtidores: Unifica el control de múltiples bombas de combustible en una sola plataforma.',
+      'Registra cada descarga con detalles de vehículo, conductor, cantidad, hora y fecha.',
+      'Automatiza la sincronización local-remota cada 10 segundos.',
+      'Implementa roles (superadmin, admin, operador) con visibilidad limitada por tanque.',
+      'Genera reportes de ventas y movimientos con filtros por fecha, surtidor y usuario.',
+      'Permite filtrar descargas por rangos de fecha, CUIT de empresa, y diferentes filtros.',
+      'Seguridad de datos: Requiere autenticación JWT y auditoría de transacciones.',
+    ],
+  },
+  {
+    title: 'RZ Web',
+    description:
+      'Sistema integral de gestión de órdenes de alquiler y facturación diseñado para empresas de rental/alquiler de productos. Permite administrar clientes, productos, órdenes de trabajo, movimientos de inventario y generar facturas. Es una solución empresarial completa que controla todo el ciclo de vida de una orden: desde su creación, asignación a trabajadores, seguimiento de stock durante el alquiler, hasta su facturación final.',
+    stack: ['PHP 8.2', 'Laravel 12', 'React', 'Typescript', 'SQLite/MySQL', 'Eloquent ORM', 'Inertia.js'],  
+    origen: 'cliente',
+    contexto: 'TrackerDev · producto de cliente, sin demo pública.',
+    logros: [
+      'Gestión completa de ciclo de órdenes: Crea órdenes, asigna trabajadores, registra productos salientes/entrantes, y finaliza órdenes con devoluciones automáticas.',
+      'Control de inventario en tiempo real: Rastrea movimientos de stock (entradas/salidas/devoluciones) vinculados a órdenes específicas, permitiendo saber qué está en alquiler y qué está disponible.',
+      'Facturación automática: Genera facturas basadas en órdenes completadas, calcula días de alquiler, aplica costos de productos y exporta a PDF.',
+      'Roles y permisos: Distingue entre Administradores, Trabajadores y Clientes con vistas personalizadas (dashboard para admin, panel de órdenes asignadas para trabajadores).',
+      'Auditoría y trazabilidad: Registra notas privadas/públicas en órdenes, adjunta archivos, y mantiene historial de cambios.'
+    ],
+  },
+  {
+    title: 'La Casa de las Persianas',
+    description: 'Sistema web integral de gestión empresarial para una empresa especializada en la fabricación y distribución de persianas (cortinas de enrollar), cortinas metálicas y automatismos. Combina un sitio de catálogo público con un panel administrativo interno que gestiona clientes, solicitudes, pedidos, inventario, pagos y asignaciones de trabajo a múltiples roles de usuarios (instaladores, colocadores, operarios de taller).',
+    stack: ['PHP 8.2', 'Laravel 12', 'Blade', 'JavaScript', 'MySQL', 'Eloquent ORM', 'React'],
+    origen: 'cliente',
+    contexto: 'TrackerDev · producto de cliente, sin demo pública.',
+    logros: [
+      'Automatización del flujo de trabajo de solicitudes, desde la creación y asignación hasta el seguimiento por estados, pagos y cierre del pedido.',
+      'Gestión integral de materiales, costos e inventario, con validación de cantidades y cálculo de deuda por cliente o proyecto.',
+      'Desarrollo de módulos para cortinas metálicas, incluyendo asignación a talleres, control de materiales, costos de instalación y seguimiento de entrega.',
+      'Integración de pagos y facturación parcial, con registro de efectivo, transferencia y tarjeta para controlar cobros y pendientes.',
+      'Implementación de autenticación, gestión de usuarios y control de accesos para garantizar seguridad y organización interna.',
+      'Generación de reportes y documentación asociada a cada solicitud, mejorando la trazabilidad y la toma de decisiones.'
     ],
   },
   {
@@ -85,23 +121,5 @@ export const projects: Project[] = [
     origen: 'cliente',
     contexto: 'TrackerDev · producto de cliente, sin demo pública.',
     logros: ['Roles jerárquicos y trazabilidad completa de postulaciones.'],
-  },
-  {
-    title: 'La Casa de las Persianas',
-    description: 'Sistema web integral: presupuestos, inventario, instalaciones y finanzas.',
-    origen: 'cliente',
-    contexto: 'TrackerDev · producto de cliente, sin demo pública.',
-    logros: [
-      'Automatización de emisión de presupuestos y gestión de inventario.',
-      'Conciliación financiera de pagos a proveedores.',
-    ],
-  },
-  {
-    title: 'MIRS Web · RZ Web',
-    description:
-      'Paneles de administración para agencia de turismo y alquiler de equipamiento para eventos.',
-    origen: 'cliente',
-    contexto: 'TrackerDev · producto de cliente, sin demo pública.',
-    logros: ['Gestión de reservas que redujo tiempos operativos.'],
   },
 ];
