@@ -2,6 +2,7 @@ import type { Project } from './types';
 
 // Dónde van las imágenes: `public/proyectos/<slug>/1.png` → '/proyectos/<slug>/1.png'.
 // Agregar rutas en `images` activa la galería automáticamente en la card.
+const base = import.meta.env.BASE_URL;
 
 export const projects: Project[] = [
   {
@@ -11,17 +12,17 @@ export const projects: Project[] = [
     stack: ['Rust', 'Node.js', 'Tauri', 'TypeScript', 'Tailwind', 'SQLite'],
     origen: 'propio',
     images: [
-      '/proyectos/erp-ferreteria/2.png', 
-      '/proyectos/erp-ferreteria/3.png', 
-      '/proyectos/erp-ferreteria/4.png', 
-      '/proyectos/erp-ferreteria/5.png', 
-      '/proyectos/erp-ferreteria/6.png',
-      '/proyectos/erp-ferreteria/7.png',
-      '/proyectos/erp-ferreteria/8.png',
-      '/proyectos/erp-ferreteria/9.png',
-      '/proyectos/erp-ferreteria/10.png',
-      '/proyectos/erp-ferreteria/11.png',
-      '/proyectos/erp-ferreteria/12.png',
+      `${base}proyectos/erp-ferreteria/2.png`,
+      `${base}proyectos/erp-ferreteria/3.png`,
+      `${base}proyectos/erp-ferreteria/4.png`,
+      `${base}proyectos/erp-ferreteria/5.png`,
+      `${base}proyectos/erp-ferreteria/6.png`,
+      `${base}proyectos/erp-ferreteria/7.png`,
+      `${base}proyectos/erp-ferreteria/8.png`,
+      `${base}proyectos/erp-ferreteria/9.png`,
+      `${base}proyectos/erp-ferreteria/10.png`,
+      `${base}proyectos/erp-ferreteria/11.png`,
+      `${base}proyectos/erp-ferreteria/12.png`,
     ],
     repo: 'https://github.com/almaranteManuel/ferreteria-cachito',
     featured: true,
@@ -33,12 +34,12 @@ export const projects: Project[] = [
     stack: ['TypeScript', 'React', 'PostgreSQL', 'Tailwind'],
     origen: 'propio',
     images: [
-      '/proyectos/prime-gym/1.png',
-      '/proyectos/prime-gym/2.png',
-      '/proyectos/prime-gym/3.png',
-      '/proyectos/prime-gym/4.png',
-      '/proyectos/prime-gym/5.png',
-      '/proyectos/prime-gym/6.png',
+      `${base}proyectos/prime-gym/1.png`,
+      `${base}proyectos/prime-gym/2.png`,
+      `${base}proyectos/prime-gym/3.png`,
+      `${base}proyectos/prime-gym/4.png`,
+      `${base}proyectos/prime-gym/5.png`,
+      `${base}proyectos/prime-gym/6.png`,
     ],
     repo: 'https://github.com/almaranteManuel/prime-gym',
     featured: true,
