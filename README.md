@@ -1,9 +1,5 @@
 # Portfolio Dev — Astro + Tailwind + TypeScript
 
-Portfolio personal estático, minimalista y elegante, inspirado en la estética dev sobria de
-[jscamp](https://github.com/midudev/jscamp) (fondo oscuro neutro, tipografía de sistema,
-acentos monoespaciados), pero con implementación propia y ligera.
-
 ## Instalación
 
 ```bash
